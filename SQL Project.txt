@@ -1,0 +1,142 @@
+-- SQL PROJECT
+use prj;
+show tables;
+select * from olympics;
+-- 1. Show how many medal counts present for entire data
+select count(medal) as total_medal_count from olympics;
+
+ 
+
+
+-- 2. Show count of unique sports present in Olympics
+select count(distinct sport) as count_distinct_sports from olympics;
+
+ 
+
+
+-- 3. Show how many different medals won by team India
+select team, medal, count(medal) as medals_count from olympics
+where team="India" and medal!="NoMedal"
+group by medal;
+ 
+
+
+
+
+select * from olympics;
+
+-- 4. Show event wise medals won by India show from highest to lowest medals won in order
+select event, team, medal, COUNT(medal) AS total_medals
+from olympics
+where team = 'India' and medal!="NoMedal"
+group by event, team, medal
+order by total_medals DESC;
+
+ 
+
+
+-- 5. Show event wise medals won by India in order of year
+select event, year, medal, team from olympics
+where team="india" and medal!= "NoMedal"
+group by event, year, team, medal
+order by year;
+ 
+
+
+-- 6. show country who won maximum medals.
+select team, count(medal) as total_medals
+from Olympics
+where medal!= "NoMedal"
+group by team
+order by total_medals desc
+limit 1;
+
+ 
+
+
+-- 7.show top 10 countries whowon gold
+select team, count(medal) as gold_medals
+from olympics
+where medal="Gold"
+group by team
+order by Gold_medals desc
+limit 10;
+
+ 
+
+
+--  8. show in which year did United states won most gold medal
+select year, COUNT(medal) AS gold_medals
+from olympics
+where team = 'United States' and medal = 'gold'
+group by year
+order by gold_medals DESC
+limit 1;
+ 
+
+
+-- 9. In which sports United States has most medals.
+select sport, COUNT(medal) AS total_medals
+from olympics
+where team = 'United States' and medal!= "NoMedal"
+group by sport
+order by total_medals DESC
+limit 1;
+ 
+
+
+select * from olympics;
+-- 10. Find top three players who won most medals along with their sports and country
+select name, team, COUNT(medal) AS total_medals
+from Olympics
+where medal!= "NoMedal"
+group by name, team
+order by total_medals DESC
+limit 3;
+
+ 
+
+
+-- 11. Find player with most gold medals in cycling along with his country.
+select name, team, COUNT(medal) AS gold_medals
+from olympics
+where medal="gold" and sport="cycling"
+group by name, team
+order by gold_medals DESC
+Limit 1;
+
+ 
+
+
+-- 12.Find player with most medals (Gold+Silver+Bronze) in Basketball also show his country.
+select name, team, COUNT(medal) AS total_medals
+from olympics
+where sport="basketball"
+group by name, team
+order by total_medals DESC
+limit 1;
+
+ 
+
+-- 13. Find out the count of different medals of the top basketball player Teresa Edwards
+select medal, count(medal) as medal_count
+from olympics
+where name="teresa edwards"
+group by medal;
+ 
+
+
+select * from olympics;
+-- 14. Find out medals won by male,female each year , Export this data and plot graph in excel
+select year, sex, COUNT(medal) AS medal_count
+from olympics
+where medal!="Nomedal"
+group by year, sex
+order by year;
+ 
+ 
+
+
+
+
+
